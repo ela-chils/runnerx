@@ -1,99 +1,90 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-navy fixed-top">
-  <div class="container">
+    <div class="container">
 
-    <a class="navbar-brand fw-bold text-gold" href="/">
-      RunnerX
-    </a>
+        <a class="navbar-brand fw-bold text-gold" href="/">
+            RunnerX
+        </a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+        <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#nav">
 
-    <div class="collapse navbar-collapse" id="nav">
+            <span class="navbar-toggler-icon"></span>
 
-      <ul class="navbar-nav ms-auto">
+        </button>
 
-        <li class="nav-item">
-          <a class="nav-link text-white" href="/">Home</a>
-        </li>
+        <div class="collapse navbar-collapse" id="nav">
 
-        <li class="nav-item">
-          <a class="nav-link text-white" href="#events">Events</a>
-        </li>
+            <ul class="navbar-nav ms-auto align-items-lg-center">
 
-        <li class="nav-item">
-          <a class="nav-link text-white" href="#about">About</a>
-        </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/">
+                        Home
+                    </a>
+                </li>
 
-        <li class="nav-item">
-            <button
-                class="btn btn-gold ms-3"
-                data-bs-toggle="modal"
-                data-bs-target="#loginModal">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#events">
+                        Events
+                    </a>
+                </li>
 
-                Login
-            </button>
-        </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#about">
+                        About
+                    </a>
+                </li>
 
-      </ul>
+                @guest
 
-    </div>
-  </div>
-</nav>
+                    <li class="nav-item ms-lg-3">
+                        <a href="{{ route('login') }}"
+                           class="btn btn-outline-light me-2">
+                            Login
+                        </a>
+                    </li>
 
-<!-- Login Modal -->
-<div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 rounded-4 shadow">
+                    <li class="nav-item mt-2 mt-lg-0">
+                        <a href="{{ route('register') }}"
+                           class="btn btn-gold">
+                            Register
+                        </a>
+                    </li>
 
-            <div class="modal-header border-0 pb-0">
-                <h4 class="fw-bold text-gold">
-                    🏃 RunnerX
-                </h4>
+                @else
 
-                <button type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"></button>
-            </div>
+                    <li class="nav-item dropdown ms-lg-3">
 
-            <div class="modal-body text-center p-4">
+                        <a class="nav-link dropdown-toggle text-white"
+                           href="#"
+                           role="button"
+                           data-bs-toggle="dropdown">
 
-                <h3 class="fw-bold mb-2">
-                    Welcome!
-                </h3>
+                            {{ Auth::user()->name }}
 
-                <p class="text-muted mb-4">
-                    Silakan pilih jenis akun untuk melanjutkan.
-                </p>
+                        </a>
 
-                <!-- Login User -->
-                <a href="{{ route('login') }}"
-                   class="btn btn-primary w-100 py-2 mb-3">
+                        <ul class="dropdown-menu dropdown-menu-end">
 
-                    👤 Login Peserta
-                </a>
+                            <li>
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
 
-                <!-- Register -->
-                <a href="{{ route('register') }}"
-                   class="btn btn-outline-primary w-100 py-2 mb-4">
+                                    <button type="submit" class="dropdown-item">
+                                        Logout
+                                    </button>
+                                </form>
+                            </li>
 
-                    📝 Daftar Akun Baru
-                </a>
+                        </ul>
 
-                <hr>
+                    </li>
 
-                <small class="text-muted">
-                    Organizer / Admin
-                </small>
+                @endguest
 
-                <a href="{{ route('admin.login') }}"
-                   class="btn btn-dark w-100 mt-3">
-
-                    🔒 Login Admin
-                </a>
-
-            </div>
+            </ul>
 
         </div>
+
     </div>
-</div>
+</nav>

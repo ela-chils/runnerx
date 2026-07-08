@@ -6,27 +6,43 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('events', function (Blueprint $table) {
+
             $table->id();
+
             $table->string('nama_event');
-            $table->string('jenis_event');
+
+            $table->enum('jenis_event', [
+                '3K',
+                '5K',
+                '10K',
+                'Half Marathon',
+                'Full Marathon'
+            ]);
+
             $table->date('tanggal');
-            $table->string('kota');
+
+            $table->enum('kota', [
+                'Jakarta',
+                'Yogyakarta',
+                'Semarang',
+                'Kendal'
+            ]);
+
             $table->integer('harga');
-            $table->integer('kuota');
+
+            $table->integer('kuota_peserta');
+
             $table->text('deskripsi');
+
             $table->timestamps();
+
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
+
     public function down(): void
     {
         Schema::dropIfExists('events');

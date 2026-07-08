@@ -56,9 +56,18 @@ Route::post('/login', function (Request $request) {
 
     if (Auth::attempt($credentials, $request->boolean('remember'))) {
 
-        $request->session()->regenerate();
+    $request->session()->regenerate();
 
-        return redirect()->route('peserta.dashboard');
+
+    if (auth()->user()->role == 'admin') {
+
+        return redirect()->route('admin.dashboard');
+
+    }
+
+
+    return redirect()->route('peserta.dashboard');
+
     }
 
     return back()->withErrors([
@@ -131,11 +140,18 @@ Route::middleware('auth')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
-| PENTING!!
+| Logout
 |--------------------------------------------------------------------------
-| Karena kita sudah membuat login & register sendiri,
-| auth bawaan Breeze dinonaktifkan dulu.
-|
 */
 
-// require __DIR__.'/auth.php';
+Route::post('/logout', function (Request $request) {
+
+    Auth::logout();
+
+    $request->session()->invalidate();
+
+    $request->session()->regenerateToken();
+
+    return redirect()->route('home');
+
+})->name('logout');

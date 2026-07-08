@@ -27,4 +27,9 @@ class Event extends Model
         return $this->hasMany(Registration::class);
     }
 
+    public function pendaftaran()
+    {
+        return $this->hasMany(Pendaftaran::class);
+    }
+
 }

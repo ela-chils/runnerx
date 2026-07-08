@@ -1,280 +1,176 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 
-<div class="container py-5">
+<div class="container mt-5">
 
-    <div class="row justify-content-center">
+    <div class="card shadow">
 
-        <div class="col-lg-8">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">
+                Tambah Event RunnerX
+            </h4>
+        </div>
 
 
-            <div class="card shadow border-0 rounded-4">
+        <div class="card-body">
 
-                <div class="card-header bg-navy text-white rounded-top-4">
 
-                    <h3 class="fw-bold mb-0">
-                        🏃 Tambah Event Lari
-                    </h3>
+            <form action="{{ route('admin.events.store') }}" method="POST">
+
+                @csrf
+
+
+                <div class="mb-3">
+                    <label class="form-label">
+                        Nama Event
+                    </label>
+
+                    <input type="text"
+                           name="nama_event"
+                           class="form-control"
+                           placeholder="Contoh: Magelang Run 2026">
 
                 </div>
 
 
-                <div class="card-body p-4">
 
+                <div class="mb-3">
 
-                    @if($errors->any())
+                    <label class="form-label">
+                        Jenis Event
+                    </label>
 
-                        <div class="alert alert-danger">
+                    <select name="jenis_event"
+                            class="form-control">
 
-                            <ul class="mb-0">
+                        <option value="">
+                            -- Pilih Jenis --
+                        </option>
 
-                                @foreach($errors->all() as $error)
+                        <option value="3K">
+                            3K
+                        </option>
 
-                                    <li>{{ $error }}</li>
+                        <option value="5K">
+                            5K
+                        </option>
 
-                                @endforeach
+                        <option value="10K">
+                            10K
+                        </option>
 
-                            </ul>
+                        <option value="Half Marathon">
+                            Half Marathon
+                        </option>
 
-                        </div>
+                        <option value="Full Marathon">
+                            Full Marathon
+                        </option>
 
-                    @endif
-
-
-
-                    <form action="{{ route('admin.events.store') }}"
-                          method="POST">
-
-                        @csrf
-
-
-
-                        <!-- Nama Event -->
-                        <div class="mb-3">
-
-                            <label class="fw-bold">
-                                Nama Event
-                            </label>
-
-                            <input type="text"
-                                   name="nama_event"
-                                   class="form-control"
-                                   placeholder="Contoh: Grow Run 2026"
-                                   value="{{ old('nama_event') }}">
-
-                        </div>
-
-
-
-
-                        <!-- Jenis Event -->
-                        <div class="mb-3">
-
-                            <label class="fw-bold">
-                                Jenis Event
-                            </label>
-
-                            <select name="jenis_event"
-                                    class="form-select">
-
-
-                                <option value="">
-                                    Pilih Jenis Event
-                                </option>
-
-
-                                <option value="3K">
-                                    3K
-                                </option>
-
-
-                                <option value="5K">
-                                    5K
-                                </option>
-
-
-                                <option value="10K">
-                                    10K
-                                </option>
-
-
-                                <option value="Half Marathon">
-                                    Half Marathon
-                                </option>
-
-
-                                <option value="Full Marathon">
-                                    Full Marathon
-                                </option>
-
-
-                            </select>
-
-                        </div>
-
-
-
-
-                        <!-- Tanggal -->
-                        <div class="mb-3">
-
-                            <label class="fw-bold">
-                                Tanggal Event
-                            </label>
-
-                            <input type="date"
-                                   name="tanggal"
-                                   class="form-control">
-
-                        </div>
-
-
-
-
-
-                        <!-- Kota -->
-                        <div class="mb-3">
-
-                            <label class="fw-bold">
-                                Kota
-                            </label>
-
-
-                            <select name="kota"
-                                    class="form-select">
-
-
-                                <option value="">
-                                    Pilih Kota
-                                </option>
-
-
-                                <option value="Jakarta">
-                                    Jakarta
-                                </option>
-
-
-                                <option value="Yogyakarta">
-                                    Yogyakarta
-                                </option>
-
-
-                                <option value="Semarang">
-                                    Semarang
-                                </option>
-
-
-                                <option value="Kendal">
-                                    Kendal
-                                </option>
-
-
-                            </select>
-
-                        </div>
-
-
-
-
-
-                        <!-- Harga -->
-                        <div class="mb-3">
-
-                            <label class="fw-bold">
-                                Harga Pendaftaran
-                            </label>
-
-
-                            <input type="number"
-                                   name="harga"
-                                   class="form-control"
-                                   placeholder="Contoh: 200000">
-
-                        </div>
-
-
-
-
-
-                        <!-- Kuota -->
-                        <div class="mb-3">
-
-                            <label class="fw-bold">
-                                Kuota Peserta
-                            </label>
-
-
-                            <input type="number"
-                                   name="kuota_peserta"
-                                   class="form-control"
-                                   placeholder="Jumlah peserta">
-
-                        </div>
-
-
-
-
-
-
-                        <!-- Deskripsi -->
-                        <div class="mb-3">
-
-                            <label class="fw-bold">
-                                Deskripsi
-                            </label>
-
-
-                            <textarea name="deskripsi"
-                                      class="form-control"
-                                      rows="5"
-                                      placeholder="Deskripsi event..."></textarea>
-
-
-                        </div>
-
-
-
-
-                        <div class="d-flex justify-content-between">
-
-
-                            <a href="{{ route('admin.events.index') }}"
-                               class="btn btn-secondary">
-
-                                Kembali
-
-                            </a>
-
-
-
-                            <button type="submit"
-                                    class="btn btn-gold fw-bold">
-
-                                Simpan Event
-
-                            </button>
-
-
-                        </div>
-
-
-
-                    </form>
-
+                    </select>
 
                 </div>
 
-            </div>
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Tanggal Event
+                    </label>
+
+                    <input type="date"
+                           name="tanggal"
+                           class="form-control">
+
+                </div>
+
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Kota
+                    </label>
+
+                    <input type="text"
+                           name="kota"
+                           class="form-control"
+                           placeholder="Contoh: Magelang">
+
+                </div>
+
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Harga Registrasi
+                    </label>
+
+                    <input type="number"
+                           name="harga"
+                           class="form-control"
+                           placeholder="Contoh: 150000">
+
+                </div>
+
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Kuota Peserta
+                    </label>
+
+                    <input type="number"
+                           name="kuota_peserta"
+                           class="form-control"
+                           placeholder="Contoh: 500">
+
+                </div>
+
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Deskripsi
+                    </label>
+
+                    <textarea name="deskripsi"
+                              class="form-control"
+                              rows="4"
+                              placeholder="Deskripsi event..."></textarea>
+
+                </div>
+
+
+
+                <button type="submit"
+                        class="btn btn-primary">
+
+                    Simpan Event
+
+                </button>
+
+
+                <a href="{{ route('admin.events.index') }}"
+                   class="btn btn-secondary">
+
+                    Kembali
+
+                </a>
+
+
+            </form>
 
 
         </div>
 
-
     </div>
 
-
 </div>
-
 
 @endsection

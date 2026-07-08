@@ -9,11 +9,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('events', function (Blueprint $table) {
-
             $table->id();
 
+            // Nama event
             $table->string('nama_event');
 
+            // Jenis event
             $table->enum('jenis_event', [
                 '3K',
                 '5K',
@@ -22,26 +23,24 @@ return new class extends Migration
                 'Full Marathon'
             ]);
 
+            // Tanggal event
             $table->date('tanggal');
 
-            $table->enum('kota', [
-                'Jakarta',
-                'Yogyakarta',
-                'Semarang',
-                'Kendal'
-            ]);
+            // Kota penyelenggaraan
+            $table->string('kota');
 
-            $table->integer('harga');
+            // Harga pendaftaran
+            $table->unsignedInteger('harga');
 
-            $table->integer('kuota_peserta');
+            // Kuota peserta
+            $table->unsignedInteger('kuota_peserta');
 
+            // Deskripsi event
             $table->text('deskripsi');
 
             $table->timestamps();
-
         });
     }
-
 
     public function down(): void
     {

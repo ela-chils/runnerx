@@ -96,4 +96,16 @@ class EventController extends Controller
 
     }
 
+    public function peserta()
+    {
+        $peserta = \App\Models\Pendaftaran::with('event')
+                    ->get();
+
+
+        return view(
+            'admin.peserta.index',
+            compact('peserta')
+        );
+    }
+
 }

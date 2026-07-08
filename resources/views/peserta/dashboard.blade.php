@@ -1,10 +1,12 @@
-@extends('layouts.app')
+@extends('layouts.peserta')
 
 @section('content')
 
 <div class="container py-5 mt-5">
 
-    <div class="card border-0 shadow-lg rounded-4"
+
+    <!-- Welcome Card -->
+    <div class="card border-0 shadow-lg rounded-4 mb-5"
          style="background:#0b0f99; color:white;">
 
         <div class="card-body p-5">
@@ -14,24 +16,98 @@
             </h2>
 
             <p class="mt-2">
-                Selamat datang, kamu sudah login sebagai peserta RunnerX 🏃‍♂️
+                Selamat datang, {{ auth()->user()->name }} 👋
             </p>
-
-            <hr style="border-color: rgba(255,255,255,0.2);">
 
             <p>
-                Di sini nanti kamu bisa:
+                Kamu sudah login sebagai peserta RunnerX 🏃‍♂️
             </p>
-
-            <ul>
-                <li>Lihat event lari</li>
-                <li>Daftar lomba</li>
-                <li>Check status pendaftaran</li>
-            </ul>
 
         </div>
 
     </div>
+
+
+
+    <!-- EVENT LIST -->
+
+    <h3 class="fw-bold mb-4">
+        Event RunnerX 🏁
+    </h3>
+
+
+    <div class="row">
+
+
+        @forelse($events as $event)
+
+
+        <div class="col-md-4 mb-4">
+
+
+            <div class="card border-0 shadow rounded-4">
+
+
+                <div class="card-body">
+
+
+                    <h5 class="fw-bold text-primary">
+                        {{ $event->nama_event }}
+                    </h5>
+
+
+                    <p class="mb-1">
+                        🏃 Jenis:
+                        {{ $event->jenis_event }}
+                    </p>
+
+
+                    <p class="mb-1">
+                        📅 Tanggal:
+                        {{ $event->tanggal }}
+                    </p>
+
+
+                    <p class="mb-1">
+                        📍 Lokasi:
+                        {{ $event->kota }}
+                    </p>
+
+
+                    <p class="mb-3">
+                        💰 Harga:
+                        Rp {{ number_format($event->harga,0,',','.') }}
+                    </p>
+
+
+                    <a href="{{ route('peserta.events.show',$event->id) }}"
+                       class="btn btn-warning fw-bold">
+                        Lihat Detail
+                    </a>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+        @empty
+
+
+        <div class="alert alert-info">
+            Belum ada event tersedia.
+        </div>
+
+
+        @endforelse
+
+
+    </div>
+
 
 </div>
 

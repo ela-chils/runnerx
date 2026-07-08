@@ -41,8 +41,18 @@
 
         <a href="/admin/dashboard">Dashboard</a>
         <a href="/admin/events">Event</a>
-        <a href="#">Peserta</a>
-        <a href="/logout">Logout</a>
+        <a href="{{ route('admin.peserta') }}">
+            Peserta
+        </a>
+        <form action="{{ route('logout') }}" method="POST" class="menu-logout">
+
+            @csrf
+
+            <button type="submit">
+                🚪 Logout
+            </button>
+
+        </form>
     </div>
 
     <!-- CONTENT -->

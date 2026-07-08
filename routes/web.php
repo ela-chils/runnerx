@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\EventController;
+use App\Http\Controllers\Peserta\EventController as PesertaEventController;
+use App\Http\Controllers\Peserta\PendaftaranController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,15 +28,27 @@ Route::get('/', function () {
 
 Route::view('/admin/login', 'admin.login')->name('admin.login');
 
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware(['auth', 'admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
 
-    Route::get('/admin/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
+        Route::get('/dashboard', function () {
+            return view('admin.dashboard');
+        })->name('dashboard');
 
-    Route::resource('/admin/events', EventController::class);
 
-});
+        Route::resource('events', EventController::class);
+
+        Route::resource('events', EventController::class);
+
+
+        // LIHAT PESERTA EVENT
+         Route::get('/peserta',
+            [EventController::class, 'peserta']
+        )->name('peserta');
+
+    });
 
 
 /*
@@ -116,9 +130,51 @@ Route::post('/register', function (Request $request) {
 
 Route::middleware('auth')->group(function () {
 
+
     Route::get('/peserta/dashboard', function () {
-        return view('peserta.dashboard');
+
+        $events = \App\Models\Event::all();
+
+        return view('peserta.dashboard', compact('events'));
+
     })->name('peserta.dashboard');
+
+
+
+    Route::get('/peserta/events',
+        [PesertaEventController::class, 'index']
+    )->name('peserta.events.index');
+
+
+
+    Route::get('/peserta/events/{event}',
+        [PesertaEventController::class, 'show']
+    )->name('peserta.events.show');
+
+
+
+    // FORM PENDAFTARAN EVENT
+
+    Route::get('/peserta/events/{event}/daftar',
+        [PendaftaranController::class, 'create']
+    )->name('peserta.pendaftaran.create');
+
+
+
+    // SIMPAN PENDAFTARAN
+
+    Route::post('/peserta/events/{event}/daftar',
+        [PendaftaranController::class, 'store']
+    )->name('peserta.pendaftaran.store');
+
+
+
+    // EVENT YANG SUDAH DIPILIH
+
+    Route::get('/peserta/pendaftaran',
+        [PendaftaranController::class, 'index']
+    )->name('peserta.pendaftaran.index');
+
 
 });
 

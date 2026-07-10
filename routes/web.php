@@ -9,6 +9,9 @@ use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Peserta\EventController as PesertaEventController;
 use App\Http\Controllers\Peserta\PendaftaranController;
 
+use App\Models\Event;
+use App\Models\Pendaftaran;
+
 /*
 |--------------------------------------------------------------------------
 | Landing Page
@@ -16,7 +19,11 @@ use App\Http\Controllers\Peserta\PendaftaranController;
 */
 
 Route::get('/', function () {
-    return view('landing.index');
+
+    $events = Event::latest()->get();
+
+    return view('landing.index', compact('events'));
+
 })->name('home');
 
 
@@ -33,21 +40,28 @@ Route::middleware(['auth', 'admin'])
     ->name('admin.')
     ->group(function () {
 
+        // Dashboard Admin
         Route::get('/dashboard', function () {
-            return view('admin.dashboard');
+
+            $totalEvent = Event::count();
+            $totalPeserta = Pendaftaran::count();
+            $eventAktif = Event::where('kuota_peserta', '>', 0)->count();
+
+            return view('admin.dashboard', compact(
+                'totalEvent',
+                'totalPeserta',
+                'eventAktif'
+            ));
+
         })->name('dashboard');
 
-
+        // CRUD Event
         Route::resource('events', EventController::class);
 
-        Route::resource('events', EventController::class);
-
-
-        // LIHAT PESERTA EVENT
-         Route::get('/peserta',
+        // Data Peserta
+        Route::get('/peserta',
             [EventController::class, 'peserta']
         )->name('peserta');
-
     });
 
 
@@ -70,24 +84,18 @@ Route::post('/login', function (Request $request) {
 
     if (Auth::attempt($credentials, $request->boolean('remember'))) {
 
-    $request->session()->regenerate();
+        $request->session()->regenerate();
 
+        if (auth()->user()->role === 'admin') {
+            return redirect()->route('admin.dashboard');
+        }
 
-    if (auth()->user()->role == 'admin') {
-
-        return redirect()->route('admin.dashboard');
-
-    }
-
-
-    return redirect()->route('peserta.dashboard');
-
+        return redirect()->route('peserta.dashboard');
     }
 
     return back()->withErrors([
         'email' => 'Email atau Password salah.',
     ])->onlyInput('email');
-
 });
 
 
@@ -118,7 +126,6 @@ Route::post('/register', function (Request $request) {
     Auth::login($user);
 
     return redirect()->route('peserta.dashboard');
-
 });
 
 
@@ -130,15 +137,13 @@ Route::post('/register', function (Request $request) {
 
 Route::middleware('auth')->group(function () {
 
-
     Route::get('/peserta/dashboard', function () {
 
-        $events = \App\Models\Event::all();
+        $events = Event::all();
 
         return view('peserta.dashboard', compact('events'));
 
     })->name('peserta.dashboard');
-
 
 
     Route::get('/peserta/events',
@@ -146,36 +151,27 @@ Route::middleware('auth')->group(function () {
     )->name('peserta.events.index');
 
 
-
     Route::get('/peserta/events/{event}',
         [PesertaEventController::class, 'show']
     )->name('peserta.events.show');
 
 
-
-    // FORM PENDAFTARAN EVENT
-
+    // Form Pendaftaran Event
     Route::get('/peserta/events/{event}/daftar',
         [PendaftaranController::class, 'create']
     )->name('peserta.pendaftaran.create');
 
 
-
-    // SIMPAN PENDAFTARAN
-
+    // Simpan Pendaftaran
     Route::post('/peserta/events/{event}/daftar',
         [PendaftaranController::class, 'store']
     )->name('peserta.pendaftaran.store');
 
 
-
-    // EVENT YANG SUDAH DIPILIH
-
+    // Event yang sudah dipilih
     Route::get('/peserta/pendaftaran',
         [PendaftaranController::class, 'index']
     )->name('peserta.pendaftaran.index');
-
-
 });
 
 
@@ -187,10 +183,17 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile',
+        [ProfileController::class, 'edit']
+    )->name('profile.edit');
 
+    Route::patch('/profile',
+        [ProfileController::class, 'update']
+    )->name('profile.update');
+
+    Route::delete('/profile',
+        [ProfileController::class, 'destroy']
+    )->name('profile.destroy');
 });
 
 
@@ -205,7 +208,6 @@ Route::post('/logout', function (Request $request) {
     Auth::logout();
 
     $request->session()->invalidate();
-
     $request->session()->regenerateToken();
 
     return redirect()->route('home');

@@ -17,32 +17,88 @@
     <style>
 
         body {
-            background-color: #f5f7fb;
+            background: #f4f7fc;
         }
 
+        .hero-dashboard {
+            background: linear-gradient(135deg, #081F5C, #1E3A8A);
+            color: white;
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .hero-dashboard h1 {
+            color: #FFC107;
+            font-weight: 700;
+        }
+
+        .stat-card {
+            background: white;
+            border: none;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        .event-card {
+            border: none;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .event-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .event-title {
+            color: #0b2c85;
+            font-weight: bold;
+        }
+
+        .btn-runner {
+            background: #FFC107;
+            color: #081F5C;
+            font-weight: bold;
+            border-radius: 12px;
+            padding: 10px 20px;
+        }
+
+        .btn-runner:hover {
+            background: #ffd84d;
+        }
+
+        /* NAVBAR RUNNERX */
 
         .navbar-runnerx {
-            background-color: #050505;
+            background: #050505 !important;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            padding: 15px 0;
         }
 
 
-        .brand {
-            color: #f7c400 !important;
-            font-weight: bold;
+        .navbar-runnerx .brand {
+            color: #FFC107 !important;
             font-size: 24px;
+            font-weight: 700;
         }
 
 
-        .btn-runnerx {
-            background-color: #f7c400;
-            color: black;
-            font-weight: bold;
+        .navbar-runnerx .nav-link {
+            color: white !important;
+            font-weight: 500;
+            margin-left: 15px;
         }
 
 
-        .btn-runnerx:hover {
-            background-color: #ffd633;
-            color: black;
+        .navbar-runnerx .nav-link:hover {
+            color: #FFC107 !important;
+        }
+
+
+        .navbar {
+            z-index: 9999;
         }
 
 

@@ -18,7 +18,7 @@
 
 
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
 
     <!-- AOS Animation -->
@@ -28,16 +28,30 @@
 
 <style>
 
+
 :root{
 
     --runner-blue:#0047ff;
+
     --runner-yellow:#ffd000;
+
     --runner-black:#050505;
+
+    --runner-navy:#020617;
 
 }
 
 
-/* BODY */
+
+/* GLOBAL */
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+
 
 body{
 
@@ -45,20 +59,30 @@ body{
 
     background:var(--runner-black);
 
+    color:white;
+
 }
+
+
 
 
 
 /* NAVBAR */
 
+
 .bg-navy{
 
-    background:var(--runner-black)!important;
+    background:transparent!important;
 
 }
 
 
+
 .navbar{
+
+    background:rgba(5,5,5,.75)!important;
+
+    backdrop-filter:blur(12px);
 
     transition:.3s ease;
 
@@ -68,16 +92,32 @@ body{
 
 .navbar.scrolled{
 
+
     background:#050505!important;
 
+
     box-shadow:
+
     0 5px 25px rgba(0,71,255,.5);
+
 
 }
 
 
 
+.navbar-brand{
+
+    font-size:1.5rem;
+
+    letter-spacing:1px;
+
+}
+
+
+
+
 /* TEXT */
+
 
 .text-gold{
 
@@ -86,7 +126,8 @@ body{
 }
 
 
-.text-navy{
+
+.text-blue{
 
     color:var(--runner-blue)!important;
 
@@ -94,9 +135,41 @@ body{
 
 
 
+.glow-yellow{
+
+
+    text-shadow:
+
+    0 0 10px var(--runner-yellow),
+
+    0 0 25px var(--runner-yellow);
+
+
+}
+
+
+
+.glow-blue{
+
+
+    text-shadow:
+
+    0 0 10px var(--runner-blue),
+
+    0 0 25px var(--runner-blue);
+
+
+}
+
+
+
+
+
 /* BUTTON */
 
+
 .btn-gold{
+
 
     background:var(--runner-yellow);
 
@@ -106,50 +179,135 @@ body{
 
     border:none;
 
+    padding:12px 30px;
+
+    border-radius:30px;
+
+    transition:.3s;
+
+
 }
 
 
 
 .btn-gold:hover{
 
+
     background:var(--runner-blue);
 
     color:white;
 
+    transform:translateY(-3px);
+
+
 }
 
 
 
-/* HERO */
+
+
+
+.btn-outline-runner{
+
+
+    border:2px solid var(--runner-yellow);
+
+    color:var(--runner-yellow);
+
+    padding:12px 30px;
+
+    border-radius:30px;
+
+    font-weight:600;
+
+
+}
+
+
+
+.btn-outline-runner:hover{
+
+
+    background:var(--runner-yellow);
+
+    color:#000;
+
+
+}
+
+
+
+
+
+/* HERO SECTION */
 
 .hero-section{
 
-    height:100vh;
+    min-height:100vh !important;
+
+    display:flex;
+
+    align-items:center;
+
+    padding-top:80px;
+
 
     background:
 
     linear-gradient(
-        135deg,
+        90deg,
         rgba(0,0,0,.9),
-        rgba(0,71,255,.7)
+        rgba(0,71,255,.5)
     ),
 
-    url('https://images.unsplash.com/photo-1552674605-db6ffd4facb5')
-
-    no-repeat center center/cover;
+    url("https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=1600&q=80")
 
 
-    position:relative;
+    center/cover no-repeat !important;
 
 }
 
 
 
-.hero-section .container{
+.hero-box{
 
-    position:relative;
+    background:rgba(0,0,0,.65);
 
-    z-index:2;
+    border:1px solid var(--runner-yellow);
+
+    padding:35px;
+
+    border-radius:25px;
+
+    color:white;
+
+
+    backdrop-filter:blur(10px);
+
+
+    box-shadow:
+
+    0 0 30px rgba(0,71,255,.5);
+
+}
+
+
+
+
+
+
+/* SECTION */
+
+
+.section-title{
+
+
+    font-weight:800;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+
 
 }
 
@@ -158,33 +316,43 @@ body{
 
 /* BLACK SECTION */
 
+
 .bg-black-runner{
 
+
     background:#050505;
+
 
 }
 
 
 
+
+
+
 /* ABOUT */
+
 
 .about-section{
 
 
     background:
 
+
     linear-gradient(
 
-        135deg,
+    135deg,
 
-        #050505,
+    #050505,
 
-        #001f80
+    #001f80
 
     );
 
 
 }
+
+
 
 
 
@@ -198,6 +366,10 @@ body{
 
     font-weight:700;
 
+    padding:8px 18px;
+
+    border-radius:20px;
+
 
 }
 
@@ -205,7 +377,7 @@ body{
 
 
 
-/* ABOUT CARD */
+/* CARD */
 
 
 .runner-card{
@@ -214,7 +386,7 @@ body{
     background:#0b0b0b;
 
 
-    border:1px solid var(--runner-blue);
+    border:1px solid rgba(0,71,255,.6);
 
 
     color:white;
@@ -227,15 +399,17 @@ body{
 
 
 
+
 .runner-card:hover{
 
 
-    transform:translateY(-8px);
+    transform:translateY(-10px);
 
 
     box-shadow:
 
-    0 0 25px rgba(0,71,255,.7);
+
+    0 0 30px rgba(0,71,255,.7);
 
 
 }
@@ -243,7 +417,6 @@ body{
 
 
 
-/* EVENT CARD */
 
 
 .runner-event{
@@ -265,27 +438,140 @@ body{
 
 
 
+
 .runner-event:hover{
 
 
-    transform:translateY(-8px);
+    transform:translateY(-10px);
 
 
     box-shadow:
 
-    0 0 25px rgba(255,208,0,.5);
+
+    0 0 30px rgba(255,208,0,.5);
+
+
+}
+
+
+/* SEARCH EVENT */
+
+
+.search-section{
+
+    background:#050505;
+
+    padding:70px 0;
+
+}
+
+
+
+.search-box{
+
+
+    background:
+
+    linear-gradient(
+
+    135deg,
+
+    #020617,
+
+    #001f80
+
+    );
+
+
+    padding:40px;
+
+
+    border-radius:25px;
+
+
+    border:1px solid rgba(255,208,0,.5);
+
+
+    box-shadow:
+
+
+    0 0 30px rgba(0,71,255,.3);
 
 
 }
 
 
 
-/* CARD GLOBAL */
 
-.card{
+.search-box h2{
 
 
-    transition:.3s ease;
+    letter-spacing:1px;
+
+
+}
+
+
+
+
+.search-box .form-select{
+
+
+    background:#050505;
+
+
+    color:white;
+
+
+    border:1px solid var(--runner-blue);
+
+
+    padding:14px;
+
+
+    border-radius:15px;
+
+
+}
+
+
+
+.search-box .form-select:focus{
+
+
+    border-color:var(--runner-yellow);
+
+
+    box-shadow:
+
+
+    0 0 10px rgba(255,208,0,.5);
+
+
+}
+
+
+
+.search-box .form-select option{
+
+
+    background:#050505;
+
+
+    color:white;
+
+
+}
+
+
+
+/* FOOTER */
+
+
+footer{
+
+
+    background:#020617;
 
 
 }
@@ -293,21 +579,21 @@ body{
 
 
 
-/* ABOUT POSITION */
-
-#about{
 
 
-    padding-top:100px;
+/* MOBILE */
+
+
+@media(max-width:768px){
+
+
+.hero-section{
+
+
+    height:90vh;
 
 
 }
-
-
-#about h2{
-
-
-    line-height:1.2;
 
 
 }
@@ -339,15 +625,15 @@ body{
 
 
 
-    <!-- Bootstrap JS -->
+<!-- Bootstrap JS -->
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 
 
-    <!-- AOS JS -->
+<!-- AOS JS -->
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 
 
@@ -363,7 +649,9 @@ AOS.init({
 });
 
 
+
 </script>
+
 
 
 
@@ -375,7 +663,6 @@ window.addEventListener("scroll",function(){
 
 
     const navbar=document.querySelector(".navbar");
-
 
 
     if(window.scrollY > 50){
@@ -395,8 +682,8 @@ window.addEventListener("scroll",function(){
     }
 
 
-
 });
+
 
 
 </script>
@@ -404,6 +691,5 @@ window.addEventListener("scroll",function(){
 
 
 </body>
-
 
 </html>

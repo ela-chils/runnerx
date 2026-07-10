@@ -2,112 +2,134 @@
 
 @section('content')
 
-<div class="container py-5 mt-5">
+<div class="container py-5">
 
+    <!-- Hero -->
+    <div class="hero-dashboard mb-5">
 
-    <!-- Welcome Card -->
-    <div class="card border-0 shadow-lg rounded-4 mb-5"
-         style="background:#0b0f99; color:white;">
+        <h1>Dashboard Peserta</h1>
 
-        <div class="card-body p-5">
+        <p class="fs-5 mt-3">
+            Selamat datang,
+            <strong>{{ auth()->user()->name }}</strong>
+        </p>
 
-            <h2 class="fw-bold text-warning">
-                Dashboard Peserta
-            </h2>
-
-            <p class="mt-2">
-                Selamat datang, {{ auth()->user()->name }} 👋
-            </p>
-
-            <p>
-                Kamu sudah login sebagai peserta RunnerX 🏃‍♂️
-            </p>
-
-        </div>
+        <p>
+            Temukan event lari favoritmu dan raih garis finish bersama RunnerX.
+        </p>
 
     </div>
 
 
+    <!-- Statistik -->
+    <div class="row mb-5">
 
-    <!-- EVENT LIST -->
+        <div class="col-md-4 mb-3">
 
-    <h3 class="fw-bold mb-4">
-        Event RunnerX 🏁
-    </h3>
+            <div class="stat-card">
 
+                <h6 class="text-muted">
+                    Total Event
+                </h6>
 
-    <div class="row">
-
-
-        @forelse($events as $event)
-
-
-        <div class="col-md-4 mb-4">
-
-
-            <div class="card border-0 shadow rounded-4">
-
-
-                <div class="card-body">
-
-
-                    <h5 class="fw-bold text-primary">
-                        {{ $event->nama_event }}
-                    </h5>
-
-
-                    <p class="mb-1">
-                        🏃 Jenis:
-                        {{ $event->jenis_event }}
-                    </p>
-
-
-                    <p class="mb-1">
-                        📅 Tanggal:
-                        {{ $event->tanggal }}
-                    </p>
-
-
-                    <p class="mb-1">
-                        📍 Lokasi:
-                        {{ $event->kota }}
-                    </p>
-
-
-                    <p class="mb-3">
-                        💰 Harga:
-                        Rp {{ number_format($event->harga,0,',','.') }}
-                    </p>
-
-
-                    <a href="{{ route('peserta.events.show',$event->id) }}"
-                       class="btn btn-warning fw-bold">
-                        Lihat Detail
-                    </a>
-
-
-                </div>
-
+                <h2 class="fw-bold text-primary">
+                    {{ $events->count() }}
+                </h2>
 
             </div>
 
+        </div>
+
+        <div class="col-md-4 mb-3">
+
+            <div class="stat-card">
+
+                <h6 class="text-muted">
+                    Event Saya
+                </h6>
+
+                <h2 class="fw-bold text-success">
+                    {{ auth()->user()->pendaftaran()->count() }}
+                </h2>
+
+            </div>
 
         </div>
 
+        <div class="col-md-4 mb-3">
 
-        @empty
+            <div class="stat-card">
 
+                <h6 class="text-muted">
+                    Status Akun
+                </h6>
 
-        <div class="alert alert-info">
-            Belum ada event tersedia.
+                <h2 class="fw-bold text-warning">
+                    Aktif
+                </h2>
+
+            </div>
+
         </div>
-
-
-        @endforelse
-
 
     </div>
 
+
+    <!-- Daftar Event -->
+    <h2 class="fw-bold mb-4">
+        Event RunnerX
+    </h2>
+
+    <div class="row">
+
+        @foreach($events as $event)
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card event-card h-100">
+
+                <div class="card-body">
+
+                    <span class="badge bg-primary mb-3">
+                        {{ $event->jenis_event }}
+                    </span>
+
+                    <h4 class="event-title mb-3">
+                        {{ $event->nama_event }}
+                    </h4>
+
+                    <hr>
+
+                    <p class="mb-2">
+                        📅 {{ \Carbon\Carbon::parse($event->tanggal)->format('d F Y') }}
+                    </p>
+
+                    <p class="mb-2">
+                        📍 {{ $event->kota }}
+                    </p>
+
+                    <p class="mb-3">
+                        💰 Rp {{ number_format($event->harga, 0, ',', '.') }}
+                    </p>
+
+                    <p class="text-muted mb-4">
+                        Sisa Kuota: {{ $event->kuota_peserta }} peserta
+                    </p>
+
+                    <a href="{{ route('peserta.events.show', $event->id) }}"
+                    class="btn btn-runner">
+                        Lihat Detail
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        @endforeach
+
+    </div>
 
 </div>
 

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Pendaftaran;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -47,8 +48,9 @@ class User extends Authenticatable
         ];
     }
 
-    public function registrations()
+    // Relasi: satu user bisa memiliki banyak pendaftaran event
+    public function pendaftaran()
     {
-        return $this->hasMany(Registration::class);
+        return $this->hasMany(Pendaftaran::class);
     }
 }

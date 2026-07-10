@@ -13,8 +13,7 @@
         <div class="row align-items-center">
 
 
-            <div class="col-lg-7 text-white">
-
+            <div class="col-lg-8 text-white text-center mx-auto">
 
                 <span class="badge badge-runner mb-3">
 
@@ -65,7 +64,7 @@
 
 
 
-                <div class="mt-4">
+                <div class="mt-4 d-flex justify-content-center">
 
 
                     <a href="#events"
@@ -123,93 +122,46 @@
 
 
 
-<form>
+<form action="{{ route('home') }}" method="GET">
 
+    <input type="hidden" name="scroll" value="events">
 
-<div class="row g-3">
+    <div class="row g-3">
 
+        <div class="col-lg-4">
+            <select name="kota" class="form-select">
+                <option value="">Semua Kota</option>
 
+                @foreach($kotas as $kota)
+                    <option value="{{ $kota }}"
+                        {{ request('kota') == $kota ? 'selected' : '' }}>
+                        {{ $kota }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
 
-<div class="col-lg-4">
+        <div class="col-lg-4">
+            <select name="jenis_event" class="form-select">
+                <option value="">Semua Event</option>
 
+                @foreach($jenisEvents as $jenis)
+                    <option value="{{ $jenis }}"
+                        {{ request('jenis_event') == $jenis ? 'selected' : '' }}>
+                        {{ $jenis }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
 
-<select class="form-select">
+        <div class="col-lg-4">
+            <button type="submit" class="btn btn-gold w-100">
+                <i class="bi bi-search"></i>
+                Cari Event
+            </button>
+        </div>
 
-<option selected>
-Pilih Kota
-</option>
-
-<option>
-Yogyakarta
-</option>
-
-<option>
-Jakarta
-</option>
-
-<option>
-Probolinggo
-</option>
-
-</select>
-
-
-</div>
-
-
-
-<div class="col-lg-4">
-
-
-<select class="form-select">
-
-
-<option selected>
-Jenis Event
-</option>
-
-<option>
-3K
-</option>
-
-<option>
-5K
-</option>
-
-<option>
-10K
-</option>
-
-<option>
-Full Maraton
-</option>
-
-
-</select>
-
-
-</div>
-
-
-
-<div class="col-lg-4">
-
-
-<button type="button"
-class="btn btn-gold w-100">
-
-<i class="bi bi-search"></i>
-
-Cari Event
-
-</button>
-
-
-</div>
-
-
-</div>
-
+    </div>
 
 </form>
 
@@ -409,66 +361,30 @@ Support
 
 <div class="row g-4">
 
-
-
-@foreach([
-
-[
-'Grow Run 2026',
-'Full Maraton',
-'15 Februari 2026',
-'Yogyakarta',
-'Rp. 200.000',
-'2.000'
-],
-
-[
-'H Run 2026',
-'5K',
-'28 Mei 2026',
-'Yogyakarta',
-'Rp. 100.000',
-'5.000'
-],
-
-[
-'HRSIY PDHI Fun Run',
-'10K',
-'8 Juli 2026',
-'Jakarta',
-'Rp. 500.000',
-'5.000'
-],
-
-[
-'Sae Run',
-'3K',
-'8 Februari 2026',
-'Probolinggo',
-'Rp. 400.000',
-'500'
-]
-
-] as $event)
-
-
+@forelse($events as $event)
 
 <div class="col-lg-3 col-md-6">
 
 
 <div class="runner-event p-4 rounded-4 h-100">
+    @if($event->gambar)
+
+    <img src="{{ asset('storage/'.$event->gambar) }}"
+        class="event-image">
+
+    @endif
 
 
 <h5 class="text-gold fw-bold">
 
-{{ $event[0] }}
+{{ $event->nama_event }}
 
 </h5>
 
 
 <span class="badge bg-primary">
 
-{{ $event[1] }}
+{{ $event->jenis_event }}
 
 </span>
 
@@ -476,7 +392,7 @@ Support
 
 <p class="mt-3">
 
-📅 {{ $event[2] }}
+📅 {{ $event->tanggal }}
 
 </p>
 
@@ -484,7 +400,7 @@ Support
 
 <p>
 
-📍 {{ $event[3] }}
+📍 {{ $event->kota }}
 
 </p>
 
@@ -492,7 +408,7 @@ Support
 
 <p class="fw-bold text-gold">
 
-💰 {{ $event[4] }}
+💰 Rp. {{ number_format($event->harga, 0, ',', '.') }}
 
 </p>
 
@@ -500,7 +416,7 @@ Support
 
 <p>
 
-👥 Kuota {{ $event[5] }} peserta
+👥 Kuota {{ $event->kuota_peserta }} peserta
 
 </p>
 
@@ -511,23 +427,15 @@ Support
 
 <p class="small">
 
-🎁 Benefit:
-
-<br>
-
-Jersey, BIB Number,
-Medal, Refreshment,
-Water Station, Doorprize
+🎁 {{ $event->deskripsi }}
 
 </p>
 
 
 
-<<a href="{{ route('login') }}"
-class="btn btn-gold btn-sm">
-
+<a href="{{ route('login') }}"
+   class="btn btn-gold btn-sm">
     Daftar Sekarang
-
 </a>
 
 
@@ -536,9 +444,17 @@ class="btn btn-gold btn-sm">
 
 </div>
 
+@empty
 
+    <div class="col-12 text-center">
+        <p class="text-light">
+            Belum ada event yang tersedia.
+        </p>
+    </div>
 
-@endforeach
+    @endforelse
+
+</div>
 
 
 
@@ -550,6 +466,24 @@ class="btn btn-gold btn-sm">
 
 </section>
 
+
+@if(request('scroll') == 'events')
+
+<script>
+
+window.onload = function(){
+
+    document
+    .getElementById('events')
+    .scrollIntoView({
+        behavior:'smooth'
+    });
+
+}
+
+</script>
+
+@endif
 
 
 @endsection

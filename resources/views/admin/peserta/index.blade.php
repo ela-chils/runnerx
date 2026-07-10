@@ -44,7 +44,6 @@
 
 <td>{{ $item->ukuran_jersey }}</td>
 
-<td>{{ $item->status }}</td>
 
 </tr>
 

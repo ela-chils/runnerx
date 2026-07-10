@@ -18,6 +18,7 @@ class Event extends Model
         'harga',
         'kuota_peserta',
         'deskripsi',
+        'gambar',
     ];
 
 

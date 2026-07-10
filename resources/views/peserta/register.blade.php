@@ -32,14 +32,15 @@
                            required>
                 </div>
 
-                <!-- EMAIL -->
+                <!-- USERNAME -->
                 <div class="mb-3">
-                    <label class="text-light small">Email</label>
-                    <input type="email"
-                           name="email"
-                           class="form-control border-0 text-white"
-                           style="background:rgba(0,0,0,0.4); padding:12px; border-radius:12px;"
-                           required>
+                    <label class="text-light small">Username</label>
+
+                    <input type="text"
+                        name="username"
+                        class="form-control border-0 text-white"
+                        style="background:rgba(0,0,0,0.4); padding:12px; border-radius:12px;"
+                        required>
                 </div>
 
                 <!-- PASSWORD -->

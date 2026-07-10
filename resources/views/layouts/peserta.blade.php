@@ -101,6 +101,16 @@
             z-index: 9999;
         }
 
+        .event-image{
+
+            width:100%;
+            height:220px;
+            object-fit:contain;
+            background:#f5f5f5;
+            border-radius:15px 15px 0 0;
+
+        }
+
 
     </style>
 

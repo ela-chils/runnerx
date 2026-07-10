@@ -20,7 +20,7 @@
             </h5>
 
 
-            <p>
+            <p class="fw-bold">
                 Harga:
                 Rp {{ number_format($event->harga,0,',','.') }}
             </p>
@@ -36,13 +36,14 @@
 
                 <div class="mb-3">
 
-                    <label>
+                    <label class="fw-bold">
                         Nama Lengkap
                     </label>
 
                     <input type="text"
                     name="nama_lengkap"
                     class="form-control"
+                    value="{{ auth()->user()->name }}"
                     required>
 
                 </div>
@@ -51,14 +52,19 @@
 
                 <div class="mb-3">
 
-                    <label>
+                    <label class="fw-bold">
                         Email
                     </label>
 
                     <input type="email"
                     name="email"
                     class="form-control"
+                    placeholder="Masukkan email aktif"
                     required>
+
+                    <small class="text-muted">
+                        Email digunakan untuk informasi event
+                    </small>
 
                 </div>
 
@@ -66,13 +72,14 @@
 
                 <div class="mb-3">
 
-                    <label>
+                    <label class="fw-bold">
                         Nomor HP
                     </label>
 
                     <input type="text"
                     name="no_hp"
                     class="form-control"
+                    placeholder="08xxxxxxxxxx"
                     required>
 
                 </div>
@@ -81,7 +88,7 @@
 
                 <div class="mb-3">
 
-                    <label>
+                    <label class="fw-bold">
                         Jenis Kelamin
                     </label>
 
@@ -105,29 +112,27 @@
 
                 <div class="mb-3">
 
-                    <label>
+                    <label class="fw-bold">
                         Ukuran Jersey
                     </label>
 
                     <select name="ukuran_jersey"
                     class="form-control">
 
-                        <option>S</option>
-                        <option>M</option>
-                        <option>L</option>
-                        <option>XL</option>
-                        <option>XXL</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                        <option value="XXL">XXL</option>
 
                     </select>
 
                 </div>
 
 
-
-
                 <div class="mb-3">
 
-                    <label>
+                    <label class="fw-bold">
                         Kode Kupon
                     </label>
 
@@ -135,15 +140,13 @@
                     <input type="text"
                     name="kode_kupon"
                     class="form-control"
-                    placeholder="Contoh: D-10">
-
+                    placeholder="Contoh: RUNNER10">
 
                 </div>
 
 
 
-
-                <button class="btn btn-warning fw-bold">
+                <button class="btn btn-warning fw-bold px-4">
 
                     Daftar Sekarang 🏃
 

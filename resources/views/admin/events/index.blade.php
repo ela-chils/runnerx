@@ -13,6 +13,7 @@
     <table class="table table-bordered">
         <thead>
         <tr>
+            <th>Gambar</th>
             <th>Nama</th>
             <th>Jenis</th>
             <th>Kota</th>
@@ -26,12 +27,30 @@
         <tbody>
             @foreach($events as $event)
             <tr>
+                <td>
+
+                @if($event->gambar)
+
+                <img src="{{ asset('storage/'.$event->gambar) }}"
+                    width="100"
+                    height="70"
+                    style="object-fit:cover"
+                    class="rounded">
+
+                @else
+
+                Tidak ada gambar
+
+                @endif
+
+                </td>
                 <td>{{ $event->nama_event }}</td>
                 <td>{{ $event->jenis_event }}</td>
                 <td>{{ $event->kota }}</td>
                 <td>{{ $event->tanggal }}</td>
                 <td>Rp {{ number_format($event->harga) }}</td>
                 <td>{{ $event->kuota_peserta }}</td>
+                <td></td>
                 <td>
 
             <a href="{{ route('admin.events.edit',$event->id) }}"

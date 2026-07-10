@@ -88,7 +88,17 @@
 
             <div class="card event-card h-100">
 
-                <div class="card-body">
+
+            @if($event->gambar)
+
+            <img src="{{ asset('storage/'.$event->gambar) }}"
+                class="event-image">
+
+            @endif
+
+
+
+            <div class="card-body">
 
                     <span class="badge bg-primary mb-3">
                         {{ $event->jenis_event }}

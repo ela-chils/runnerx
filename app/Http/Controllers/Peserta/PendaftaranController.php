@@ -34,6 +34,14 @@ class PendaftaranController extends Controller
             'kode_kupon' => 'nullable'
         ]);
 
+        if($event->kuota_peserta <= 0){
+
+            return back()
+                ->withErrors([
+                    'event'=>'Kuota event sudah penuh'
+                ]);
+
+        }
 
         Pendaftaran::create([
 
@@ -53,13 +61,13 @@ class PendaftaranController extends Controller
 
             'kode_kupon' => $request->kode_kupon,
 
+            'harga_awal' => $event->harga,
+
+            'harga_bayar' => $event->harga,
+
             'status' => 'pending'
 
         ]);
-
-
-        $event->decrement('kuota_peserta');
-
 
         return redirect()
             ->route('peserta.dashboard')

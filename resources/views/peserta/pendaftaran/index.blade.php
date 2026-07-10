@@ -47,15 +47,6 @@
                 </p>
 
 
-                <p>
-                    <b>Status:</b>
-
-                    <span class="badge bg-warning">
-                        {{ $data->status }}
-                    </span>
-
-                </p>
-
 
             </div>
 

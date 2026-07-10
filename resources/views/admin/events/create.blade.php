@@ -16,7 +16,9 @@
         <div class="card-body">
 
 
-            <form action="{{ route('admin.events.store') }}" method="POST">
+            <form action="{{ route('admin.events.store') }}" 
+                method="POST"
+                enctype="multipart/form-data">
 
                 @csrf
 
@@ -33,44 +35,54 @@
 
                 </div>
 
+                <div class="mb-3">
+
+                    <label class="form-label">
+                    Gambar Event
+                    </label>
+
+                    <input type="file"
+                    name="gambar"
+                    class="form-control">
+
+                    </div>
 
 
+                {{-- JENIS EVENT MASTER DATA --}}
                 <div class="mb-3">
 
                     <label class="form-label">
                         Jenis Event
                     </label>
 
+
                     <select name="jenis_event"
-                            class="form-control">
+                            class="form-select">
+
 
                         <option value="">
-                            -- Pilih Jenis --
+                            -- Pilih Jenis Event --
                         </option>
 
-                        <option value="3K">
-                            3K
-                        </option>
 
-                        <option value="5K">
-                            5K
-                        </option>
+                        @foreach($jenisEvents as $jenis)
 
-                        <option value="10K">
-                            10K
-                        </option>
+                            <option value="{{ $jenis->nama_jenis }}">
 
-                        <option value="Half Marathon">
-                            Half Marathon
-                        </option>
+                                {{ $jenis->nama_jenis }}
 
-                        <option value="Full Marathon">
-                            Full Marathon
-                        </option>
+                            </option>
+
+
+                        @endforeach
+
 
                     </select>
 
+
                 </div>
+
+
 
 
 
@@ -80,26 +92,59 @@
                         Tanggal Event
                     </label>
 
+
                     <input type="date"
                            name="tanggal"
                            class="form-control">
+
 
                 </div>
 
 
 
+
+
+                {{-- KOTA MASTER DATA --}}
                 <div class="mb-3">
+
 
                     <label class="form-label">
                         Kota
                     </label>
 
-                    <input type="text"
-                           name="kota"
-                           class="form-control"
-                           placeholder="Contoh: Magelang">
+
+                    <select name="kota"
+                            class="form-select">
+
+
+                        <option value="">
+                            -- Pilih Kota --
+                        </option>
+
+
+
+                        @foreach($kotas as $kota)
+
+
+                            <option value="{{ $kota->nama_kota }}">
+
+                                {{ $kota->nama_kota }}
+
+                            </option>
+
+
+
+                        @endforeach
+
+
+
+                    </select>
+
 
                 </div>
+
+
+
 
 
 
@@ -109,12 +154,16 @@
                         Harga Registrasi
                     </label>
 
+
                     <input type="number"
                            name="harga"
                            class="form-control"
                            placeholder="Contoh: 150000">
 
+
                 </div>
+
+
 
 
 
@@ -124,12 +173,16 @@
                         Kuota Peserta
                     </label>
 
+
                     <input type="number"
                            name="kuota_peserta"
                            class="form-control"
                            placeholder="Contoh: 500">
 
+
                 </div>
+
+
 
 
 
@@ -139,12 +192,26 @@
                         Deskripsi
                     </label>
 
+
                     <textarea name="deskripsi"
                               class="form-control"
                               rows="4"
                               placeholder="Deskripsi event..."></textarea>
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Gambar Event
+                            </label>
+
+                            <input type="file"
+                                name="gambar"
+                                class="form-control">
+
+                        </div>
 
                 </div>
+
+
 
 
 
@@ -162,6 +229,7 @@
                     Kembali
 
                 </a>
+
 
 
             </form>

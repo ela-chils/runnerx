@@ -16,7 +16,8 @@
         <div class="card-body">
 
             <form action="{{ route('admin.events.update', $event->id) }}"
-                  method="POST">
+            method="POST"
+            enctype="multipart/form-data">
 
                 @csrf
                 @method('PUT')
@@ -33,117 +34,195 @@
                            value="{{ $event->nama_event }}">
                 </div>
 
-
                 <div class="mb-3">
+
                     <label class="form-label">
-                        Jenis Event
+                        Ganti Gambar Event
                     </label>
 
-                    <select name="jenis_event"
-                            class="form-control">
-
-                        <option value="3K"
-                        {{ $event->jenis_event == '3K' ? 'selected' : '' }}>
-                            3K
-                        </option>
-
-                        <option value="5K"
-                        {{ $event->jenis_event == '5K' ? 'selected' : '' }}>
-                            5K
-                        </option>
-
-                        <option value="10K"
-                        {{ $event->jenis_event == '10K' ? 'selected' : '' }}>
-                            10K
-                        </option>
-
-                        <option value="Half Marathon"
-                        {{ $event->jenis_event == 'Half Marathon' ? 'selected' : '' }}>
-                            Half Marathon
-                        </option>
-
-                        <option value="Full Marathon"
-                        {{ $event->jenis_event == 'Full Marathon' ? 'selected' : '' }}>
-                            Full Marathon
-                        </option>
-
-                    </select>
+                    <input type="file"
+                        name="gambar"
+                        class="form-control">
 
                 </div>
 
 
+
+                {{-- JENIS EVENT MASTER DATA --}}
                 <div class="mb-3">
+
+                    <label class="form-label">
+                        Jenis Event
+                    </label>
+
+
+                    <select name="jenis_event"
+                            class="form-select">
+
+
+                        <option value="">
+                            -- Pilih Jenis Event --
+                        </option>
+
+
+                        @foreach($jenisEvents as $jenis)
+
+
+                            <option value="{{ $jenis->nama_jenis }}"
+
+                            {{ $event->jenis_event == $jenis->nama_jenis ? 'selected' : '' }}>
+
+
+                                {{ $jenis->nama_jenis }}
+
+
+                            </option>
+
+
+                        @endforeach
+
+
+                    </select>
+
+
+                </div>
+
+
+
+
+                <div class="mb-3">
+
                     <label class="form-label">
                         Tanggal
                     </label>
+
 
                     <input type="date"
                            name="tanggal"
                            class="form-control"
                            value="{{ $event->tanggal }}">
+
                 </div>
 
 
+
+
+                {{-- KOTA MASTER DATA --}}
                 <div class="mb-3">
+
                     <label class="form-label">
                         Kota
                     </label>
 
-                    <input type="text"
-                           name="kota"
-                           class="form-control"
-                           value="{{ $event->kota }}">
+
+                    <select name="kota"
+                            class="form-select">
+
+
+                        <option value="">
+                            -- Pilih Kota --
+                        </option>
+
+
+
+                        @foreach($kotas as $kota)
+
+
+                            <option value="{{ $kota->nama_kota }}"
+
+
+                            {{ $event->kota == $kota->nama_kota ? 'selected' : '' }}>
+
+
+                                {{ $kota->nama_kota }}
+
+
+                            </option>
+
+
+
+                        @endforeach
+
+
+
+                    </select>
+
+
                 </div>
 
 
+
+
                 <div class="mb-3">
+
                     <label class="form-label">
                         Harga
                     </label>
+
 
                     <input type="number"
                            name="harga"
                            class="form-control"
                            value="{{ $event->harga }}">
+
                 </div>
 
 
+
+
                 <div class="mb-3">
+
                     <label class="form-label">
                         Kuota Peserta
                     </label>
+
 
                     <input type="number"
                            name="kuota_peserta"
                            class="form-control"
                            value="{{ $event->kuota_peserta }}">
+
                 </div>
 
 
+
+
                 <div class="mb-3">
+
                     <label class="form-label">
                         Deskripsi
                     </label>
 
+
                     <textarea name="deskripsi"
                               class="form-control"
                               rows="4">{{ $event->deskripsi }}</textarea>
+
+
                 </div>
+
+
 
 
                 <button type="submit"
                         class="btn btn-warning">
+
                     Update Event
+
                 </button>
+
 
 
                 <a href="{{ route('admin.events.index') }}"
                    class="btn btn-secondary">
+
                     Kembali
+
                 </a>
 
 
             </form>
+
 
         </div>
 

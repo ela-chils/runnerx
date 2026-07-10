@@ -24,22 +24,25 @@
             <!-- ERROR -->
             @if ($errors->any())
                 <div class="alert alert-danger py-2 small">
-                    Email atau password salah
+                    Username atau password salah
                 </div>
             @endif
 
             <form method="POST" action="{{ route('login') }}">
                 @csrf
 
-                <!-- EMAIL -->
+                <!-- USERNAME -->
                 <div class="mb-3">
-                    <label class="text-light small mb-1">Email</label>
-                    <input type="email"
-                           name="email"
-                           value="{{ old('email') }}"
-                           class="form-control border-0 text-white"
-                           style="background:rgba(0,0,0,0.4); padding:12px; border-radius:12px;"
-                           required>
+                    <label class="text-light small mb-1">
+                        Username
+                    </label>
+
+                    <input type="text"
+                        name="username"
+                        value="{{ old('username') }}"
+                        class="form-control border-0 text-white"
+                        style="background:rgba(0,0,0,0.4); padding:12px; border-radius:12px;"
+                        required>
                 </div>
 
                 <!-- PASSWORD -->

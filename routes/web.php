@@ -18,11 +18,38 @@ use App\Models\Pendaftaran;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', function () {
+Route::get('/', function (Request $request) {
 
-    $events = Event::latest()->get();
+    $query = Event::query();
 
-    return view('landing.index', compact('events'));
+    // Filter Kota
+    if ($request->filled('kota')) {
+        $query->where('kota', $request->kota);
+    }
+
+    // Filter Jenis Event
+    if ($request->filled('jenis_event')) {
+        $query->where('jenis_event', $request->jenis_event);
+    }
+
+    // Ambil event hasil filter
+    $events = $query->latest()->get();
+
+    // Ambil daftar kota unik
+    $kotas = Event::select('kota')
+        ->distinct()
+        ->pluck('kota');
+
+    // Ambil daftar jenis event unik
+    $jenisEvents = Event::select('jenis_event')
+        ->distinct()
+        ->pluck('jenis_event');
+
+    return view('landing.index', compact(
+        'events',
+        'kotas',
+        'jenisEvents'
+    ));
 
 })->name('home');
 
@@ -32,8 +59,6 @@ Route::get('/', function () {
 | Admin
 |--------------------------------------------------------------------------
 */
-
-Route::view('/admin/login', 'admin.login')->name('admin.login');
 
 Route::middleware(['auth', 'admin'])
     ->prefix('admin')
@@ -78,12 +103,14 @@ Route::get('/login', function () {
 Route::post('/login', function (Request $request) {
 
     $credentials = $request->validate([
-        'email' => ['required', 'email'],
-        'password' => ['required'],
+
+    'username' => ['required'],
+
+    'password' => ['required'],
+
     ]);
 
     if (Auth::attempt($credentials, $request->boolean('remember'))) {
-
         $request->session()->regenerate();
 
         if (auth()->user()->role === 'admin') {
@@ -94,8 +121,8 @@ Route::post('/login', function (Request $request) {
     }
 
     return back()->withErrors([
-        'email' => 'Email atau Password salah.',
-    ])->onlyInput('email');
+        'username' => 'Username atau Password salah.',
+    ])->onlyInput('username');
 });
 
 
@@ -112,20 +139,34 @@ Route::get('/register', function () {
 Route::post('/register', function (Request $request) {
 
     $request->validate([
+
         'name' => 'required|string|max:255',
-        'email' => 'required|email|unique:users,email',
+
+        'username' => 'required|string|max:255|unique:users,username',
+
         'password' => 'required|min:6',
+
     ]);
 
+
     $user = \App\Models\User::create([
+
         'name' => $request->name,
-        'email' => $request->email,
+
+        'username' => $request->username,
+
         'password' => bcrypt($request->password),
+
+        'role' => 'peserta',
+
     ]);
+
 
     Auth::login($user);
 
+
     return redirect()->route('peserta.dashboard');
+
 });
 
 

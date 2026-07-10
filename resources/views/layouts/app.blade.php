@@ -598,6 +598,18 @@ footer{
 
 }
 
+/* IMAGE */
+.event-image{
+
+    width:100%;
+    height:200px;
+    object-fit:contain;
+    background:#000;
+    border-radius:15px;
+    margin-bottom:15px;
+
+}
+
 
 
 </style>
@@ -683,12 +695,27 @@ window.addEventListener("scroll",function(){
 
 
 });
-
-
-
 </script>
 
+<script>
+window.addEventListener('load', function () {
 
+    const params = new URLSearchParams(window.location.search);
+
+    if (params.get('scroll') === 'events') {
+
+        const section = document.getElementById('events');
+
+        if (section) {
+            section.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+    }
+
+});
+</script>
 
 </body>
 

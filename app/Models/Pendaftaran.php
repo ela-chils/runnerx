@@ -19,7 +19,7 @@ class Pendaftaran extends Model
         'harga_awal',
         'potongan',
         'harga_bayar',
-        'status'
+        
     ];
 
 

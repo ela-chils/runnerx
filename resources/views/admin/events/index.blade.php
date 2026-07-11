@@ -50,7 +50,6 @@
                 <td>{{ $event->tanggal }}</td>
                 <td>Rp {{ number_format($event->harga) }}</td>
                 <td>{{ $event->kuota_peserta }}</td>
-                <td></td>
                 <td>
 
             <a href="{{ route('admin.events.edit',$event->id) }}"

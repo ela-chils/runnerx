@@ -43,6 +43,24 @@ class PendaftaranController extends Controller
 
         }
 
+        $potongan = 0;
+
+        switch ($request->kode_kupon) {
+            case 'D-10':
+                $potongan = 10000;
+                break;
+
+            case 'D-20':
+                $potongan = 20000;
+                break;
+
+            case 'D-50':
+                $potongan = 50000;
+                break;
+        }
+
+        $hargaBayar = $event->harga - $potongan;
+
         Pendaftaran::create([
 
             'user_id' => Auth::id(),
@@ -63,11 +81,13 @@ class PendaftaranController extends Controller
 
             'harga_awal' => $event->harga,
 
-            'harga_bayar' => $event->harga,
+            'potongan' => $potongan,
 
-            'status' => 'pending'
+            'harga_bayar' => $hargaBayar,
 
         ]);
+
+        $event->decrement('kuota_peserta');
 
         return redirect()
             ->route('peserta.dashboard')

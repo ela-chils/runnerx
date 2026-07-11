@@ -20,7 +20,6 @@
     <th>Event</th>
     <th>No HP</th>
     <th>Jersey</th>
-    <th>Status</th>
 </tr>
 
 </thead>

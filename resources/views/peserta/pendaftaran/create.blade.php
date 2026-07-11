@@ -136,11 +136,25 @@
                         Kode Kupon
                     </label>
 
+                    <select name="kode_kupon" class="form-control">
 
-                    <input type="text"
-                    name="kode_kupon"
-                    class="form-control"
-                    placeholder="Contoh: RUNNER10">
+                        <option value="">
+                            Tidak menggunakan kupon
+                        </option>
+
+                        <option value="D-10">
+                            D-10 (Potongan Rp10.000)
+                        </option>
+
+                        <option value="D-20">
+                            D-20 (Potongan Rp20.000)
+                        </option>
+
+                        <option value="D-50">
+                            D-50 (Potongan Rp50.000)
+                        </option>
+
+                    </select>
 
                 </div>
 
@@ -148,7 +162,7 @@
 
                 <button class="btn btn-warning fw-bold px-4">
 
-                    Daftar Sekarang 🏃
+                    Daftar Sekarang
 
                 </button>
 

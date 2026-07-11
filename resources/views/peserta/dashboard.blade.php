@@ -11,7 +11,6 @@
 
         <p class="fs-5 mt-3">
             Selamat datang,
-            <strong>{{ auth()->user()->name }}</strong>
         </p>
 
         <p>

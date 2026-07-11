@@ -13,9 +13,9 @@
         <div class="row align-items-center">
 
 
-            <div class="col-lg-8 text-white text-center mx-auto">
+            <div class="col-lg-8 text-white text-center mx-auto hero-content">
 
-                <span class="badge badge-runner mb-3">
+                <span class="badge badge-runner mb-3 hero-item">
 
                     RUNNING EVENT PLATFORM
 
@@ -23,7 +23,7 @@
 
 
 
-                <h1 class="display-2 fw-bold mt-3">
+                <h1 class="display-2 fw-bold mt-3 hero-item">
 
 
                     RUN
@@ -44,7 +44,7 @@
 
 
 
-                <p class="lead mt-4">
+                <p class="lead mt-4 hero-item">
 
                     RunnerX menghadirkan pengalaman event lari
                     terbaik untuk para runner di Indonesia.
@@ -53,7 +53,7 @@
 
 
 
-                <p>
+                <p class="hero-item>
 
                     Temukan event favoritmu,
                     daftar dengan mudah,
@@ -64,11 +64,11 @@
 
 
 
-                <div class="mt-4 d-flex justify-content-center">
+                <div class="mt-4 d-flex justify-content-center hero-item">
 
 
                     <a href="#events"
-                    class="btn btn-gold btn-lg me-3">
+                    class="btn btn-gold btn-lg me-3 hero-item">
 
                         Explore Event
 
@@ -77,7 +77,7 @@
 
 
                     <a href="/register"
-                    class="btn btn-outline-runner btn-lg">
+                    class="btn btn-outline-runner btn-lg hero-item">
 
                         Join Now
 

@@ -5,7 +5,7 @@
 <div class="container mt-5">
 
     <h2 class="fw-bold mb-4">
-        Event Saya 🏃
+        Event Saya
     </h2>
 
 

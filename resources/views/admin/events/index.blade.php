@@ -19,7 +19,7 @@
             <th>Kota</th>
             <th>Tanggal</th>
             <th>Harga</th>
-            <th>Kuota</th>
+            <th>Sisa Kuota</th>
             <th>Aksi</th>
         </tr>
         </thead>

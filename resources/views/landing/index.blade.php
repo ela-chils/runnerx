@@ -416,7 +416,7 @@ Support
 
 <p>
 
-👥 Kuota {{ $event->kuota_peserta }} tersisa
+👥 {{ $event->kuota_peserta }} Kuota tersisa
 
 </p>
 

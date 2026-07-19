@@ -57,27 +57,27 @@
 
 
                     <select name="jenis_event"
-                            class="form-select">
+                        class="form-select">
 
 
-                        <option value="">
-                            -- Pilih Jenis Event --
+                    <option value="">
+                        -- Pilih Jenis Event --
+                    </option>
+
+
+                    @foreach($jenisEvents as $jenis)
+
+                        <option value="{{ $jenis->id }}">
+
+                            {{ $jenis->nama_jenis }}
+
                         </option>
 
 
-                        @foreach($jenisEvents as $jenis)
-
-                            <option value="{{ $jenis->nama_jenis }}">
-
-                                {{ $jenis->nama_jenis }}
-
-                            </option>
+                    @endforeach
 
 
-                        @endforeach
-
-
-                    </select>
+                </select>
 
 
                 </div>
@@ -197,17 +197,7 @@
                               class="form-control"
                               rows="4"
                               placeholder="Deskripsi event..."></textarea>
-                        <div class="mb-3">
-
-                            <label class="form-label">
-                                Gambar Event
-                            </label>
-
-                            <input type="file"
-                                name="gambar"
-                                class="form-control">
-
-                        </div>
+                        
 
                 </div>
 

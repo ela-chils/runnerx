@@ -10,40 +10,31 @@ class MasterDataSeeder extends Seeder
 {
     public function run(): void
     {
-        // Master Data Kota
-        Kota::insert([
-            [
-                'nama_kota' => 'Jakarta'
-            ],
-            [
-                'nama_kota' => 'Yogyakarta'
-            ],
-            [
-                'nama_kota' => 'Semarang'
-            ],
-            [
-                'nama_kota' => 'Probolinggo'
-            ],
-        ]);
+        $kotas = [
+            'Jakarta',
+            'Yogyakarta',
+            'Semarang',
+            'Probolinggo',
+        ];
 
+        foreach ($kotas as $kota) {
+            Kota::firstOrCreate([
+                'nama_kota' => $kota,
+            ]);
+        }
 
-        // Master Data Jenis Event
-        JenisEvent::insert([
-            [
-                'nama_jenis' => '3K'
-            ],
-            [
-                'nama_jenis' => '5K'
-            ],
-            [
-                'nama_jenis' => '10K'
-            ],
-            [
-                'nama_jenis' => 'Half Marathon'
-            ],
-            [
-                'nama_jenis' => 'Full Marathon'
-            ],
-        ]);
+        $jenisEvents = [
+            '3K',
+            '5K',
+            '10K',
+            'Half Marathon',
+            'Full Marathon',
+        ];
+
+        foreach ($jenisEvents as $jenis) {
+            JenisEvent::firstOrCreate([
+                'nama_jenis' => $jenis,
+            ]);
+        }
     }
 }

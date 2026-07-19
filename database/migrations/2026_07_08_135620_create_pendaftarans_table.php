@@ -66,9 +66,11 @@ return new class extends Migration
                 'lunas'
             ])->default('pending');
 
+            $table->string('kode_bib')->unique();
 
             $table->timestamps();
 
+            
         });
     }
 

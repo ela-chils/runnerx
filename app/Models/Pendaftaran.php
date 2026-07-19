@@ -12,6 +12,7 @@ class Pendaftaran extends Model
         'event_id',
         'nama_lengkap',
         'email',
+        'nik',
         'no_hp',
         'jenis_kelamin',
         'ukuran_jersey',
@@ -19,15 +20,11 @@ class Pendaftaran extends Model
         'harga_awal',
         'potongan',
         'harga_bayar',
+        'kode_bib',
+        'status',
+        'status_pembayaran'
         
     ];
-
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
 
     public function event()
     {

@@ -9,7 +9,6 @@ class Event extends Model
 {
     use HasFactory;
 
-
     protected $fillable = [
         'nama_event',
         'jenis_event',
@@ -21,16 +20,8 @@ class Event extends Model
         'gambar',
     ];
 
-
-
-    public function registrations()
-    {
-        return $this->hasMany(Registration::class);
-    }
-
     public function pendaftaran()
     {
         return $this->hasMany(Pendaftaran::class);
     }
-
 }

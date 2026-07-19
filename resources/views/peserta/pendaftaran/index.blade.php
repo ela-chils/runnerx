@@ -46,6 +46,61 @@
                     {{ $data->kode_kupon ?? '-' }}
                 </p>
 
+                <p>
+                <b>No BIB:</b>
+                <span class="badge bg-primary">
+                    {{ $data->kode_bib }}
+                </span>
+            </p>
+                <p>
+        <b>NIK:</b>
+        {{ $data->nik }}
+    </p>
+
+        <p>
+            <b>Harga Awal:</b>
+            Rp {{ number_format($data->harga_awal,0,',','.') }}
+        </p>
+
+
+        <p>
+            <b>Diskon:</b>
+            Rp {{ number_format($data->potongan,0,',','.') }}
+        </p>
+
+
+        <p>
+            <b>Total Bayar:</b>
+            <strong>
+                Rp {{ number_format($data->harga_bayar,0,',','.') }}
+            </strong>
+        </p>
+
+
+        <p>
+            <b>Status Pembayaran:</b>
+
+            @if($data->status_pembayaran == 'lunas')
+
+                <span class="badge bg-success">
+                    Lunas
+                </span>
+
+            @elseif($data->status_pembayaran == 'pending')
+
+                <span class="badge bg-warning text-dark">
+                    Pending
+                </span>
+
+            @else
+
+                <span class="badge bg-danger">
+                    Gagal
+                </span>
+
+            @endif
+
+        </p>
 
 
             </div>

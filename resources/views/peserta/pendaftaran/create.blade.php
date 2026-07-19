@@ -25,7 +25,23 @@
                 Rp {{ number_format($event->harga,0,',','.') }}
             </p>
 
+            @if($errors->any())
 
+            <div class="alert alert-danger">
+
+                <ul class="mb-0">
+
+                    @foreach($errors->all() as $error)
+
+                        <li>{{ $error }}</li>
+
+                    @endforeach
+
+                </ul>
+
+            </div>
+
+            @endif
 
             <form action="{{ route('peserta.pendaftaran.store',$event->id) }}"
                   method="POST">
@@ -68,7 +84,30 @@
 
                 </div>
 
+                <div class="mb-3">
 
+                    <label class="form-label">
+                        NIK
+                    </label>
+
+                    <input 
+                        type="text"
+                        name="nik"
+                        class="form-control @error('nik') is-invalid @enderror"
+                        maxlength="16"
+                        value="{{ old('nik') }}"
+                        required>
+
+
+                    @error('nik')
+
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+
+                    @enderror
+
+                </div>
 
                 <div class="mb-3">
 

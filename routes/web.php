@@ -8,6 +8,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Peserta\EventController as PesertaEventController;
 use App\Http\Controllers\Peserta\PendaftaranController;
+use App\Http\Controllers\Admin\PesertaController;
+
 
 use App\Models\Event;
 use App\Models\Pendaftaran;
@@ -84,9 +86,11 @@ Route::middleware(['auth', 'admin'])
         Route::resource('events', EventController::class);
 
         // Data Peserta
-        Route::get('/peserta',
-            [EventController::class, 'peserta']
-        )->name('peserta');
+        Route::get('/peserta', [PesertaController::class, 'index'])
+            ->name('peserta');
+        // Konfirmasi pembayaran
+        Route::put('/peserta/{id}/lunas', [PesertaController::class, 'lunas'])
+            ->name('peserta.lunas');
     });
 
 

@@ -28,11 +28,27 @@ class PendaftaranController extends Controller
         $request->validate([
             'nama_lengkap' => 'required',
             'email' => 'required|email',
+            'nik' => 'required|digits:16',
             'no_hp' => 'required',
             'jenis_kelamin' => 'required',
             'ukuran_jersey' => 'required',
             'kode_kupon' => 'nullable'
         ]);
+
+        $cekNik = Pendaftaran::where('nik', $request->nik)
+            ->where('event_id', $event->id)
+            ->exists();
+
+
+        if($cekNik){
+
+            return back()
+                ->withErrors([
+                    'nik' => 'NIK sudah terdaftar pada event ini.'
+                ])
+                ->withInput();
+
+        }
 
         if($event->kuota_peserta <= 0){
 
@@ -61,31 +77,36 @@ class PendaftaranController extends Controller
 
         $hargaBayar = $event->harga - $potongan;
 
-        Pendaftaran::create([
+        $jumlahPesertaEvent = Pendaftaran::where(
+            'event_id',
+            $event->id
+        )->count();
 
-            'user_id' => Auth::id(),
 
-            'event_id' => $event->id,
+        $nomorBib = 'BIB-' . str_pad(
+            $jumlahPesertaEvent + 1,
+            4,
+            '0',
+            STR_PAD_LEFT
+        );
 
-            'nama_lengkap' => $request->nama_lengkap,
+        $data = new Pendaftaran();
 
-            'email' => $request->email,
+$data->user_id = Auth::id();
+$data->event_id = $event->id;
+$data->nama_lengkap = $request->nama_lengkap;
+$data->email = $request->email;
+$data->nik = $request->nik;
+$data->no_hp = $request->no_hp;
+$data->jenis_kelamin = $request->jenis_kelamin;
+$data->ukuran_jersey = $request->ukuran_jersey;
+$data->kode_kupon = $request->kode_kupon;
+$data->harga_awal = $event->harga;
+$data->potongan = $potongan;
+$data->harga_bayar = $hargaBayar;
+$data->kode_bib = $nomorBib;
 
-            'no_hp' => $request->no_hp,
-
-            'jenis_kelamin' => $request->jenis_kelamin,
-
-            'ukuran_jersey' => $request->ukuran_jersey,
-
-            'kode_kupon' => $request->kode_kupon,
-
-            'harga_awal' => $event->harga,
-
-            'potongan' => $potongan,
-
-            'harga_bayar' => $hargaBayar,
-
-        ]);
+$data->save();
 
         $event->decrement('kuota_peserta');
 

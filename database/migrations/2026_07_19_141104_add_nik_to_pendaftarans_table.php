@@ -6,14 +6,12 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('pendaftarans', function (Blueprint $table) {
 
-            $table->string('username')
-                  ->unique()
-                  ->after('name');
+            $table->string('nik')
+                ->after('email');
 
         });
     }
@@ -21,11 +19,10 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('pendaftarans', function (Blueprint $table) {
 
-            $table->dropColumn('username');
+            $table->dropColumn('nik');
 
         });
     }
-
 };
